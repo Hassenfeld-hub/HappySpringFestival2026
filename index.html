@@ -1,5 +1,7 @@
+<!-- ========== 根节点：HTML文档 ========== -->
 <!doctype html>
 <html lang="zh-CN">
+  <!-- ========== 头部区域：元数据与资源引用 ========== -->
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -18,7 +20,9 @@
     ></script>
     <link href="css/style.css" rel="stylesheet" />
   </head>
+  <!-- ========== 主体内容 ========== -->
   <body>
+    <!-- SVG滤镜定义：为印章添加粗糙质感效果 -->
     <svg style="display: none">
       <defs>
         <filter id="roughness">
@@ -33,12 +37,14 @@
       </defs>
     </svg>
 
+    <!-- 烟花动画画布 -->
     <canvas id="firework-canvas"></canvas>
 
-    <!-- 首页视图 -->
+    <!-- ========== 视图1：首页（书法展示） ========== -->
     <main id="view-home" class="view active">
       <div class="main-container">
         <div class="calligraphy-box">
+          <!-- 印章容器 -->
           <div class="seal-container">
             <svg
               class="seal-bg"
@@ -51,12 +57,14 @@
             </svg>
             <div class="seal-text">丙午马年</div>
           </div>
+          <!-- 书法四字 -->
           <div class="char char-xin">新</div>
           <div class="char char-chun">春</div>
           <div class="char char-kuai">快</div>
           <div class="char char-le">乐</div>
         </div>
       </div>
+      <!-- 许愿入口按钮 -->
       <button
         class="wish-button"
         onclick="
@@ -66,12 +74,14 @@
       >
         许愿
       </button>
+      <!-- 交互提示 -->
       <div class="hint">--点击屏幕 绽放烟花--</div>
     </main>
 
-    <!-- 许愿墙视图 -->
+    <!-- ========== 视图2：许愿墙 ========== -->
     <section id="view-wall" class="view hidden" style="display: none">
       <div class="wall-header">
+        <!-- 返回首页按钮 -->
         <button
           class="back-btn"
           onclick="
@@ -83,7 +93,9 @@
         </button>
         <h2 class="wall-title">许愿</h2>
       </div>
+      <!-- 许愿卡片网格容器 -->
       <div id="message-grid"></div>
+      <!-- 打开许愿弹窗按钮 -->
       <button
         class="write-btn"
         onclick="
@@ -95,24 +107,28 @@
       </button>
     </section>
 
-    <!-- 弹窗 -->
+    <!-- ========== 模态弹窗：许愿表单 ========== -->
     <div id="wish-modal" class="modal">
       <div class="modal-content">
         <h3>提交愿望</h3>
+        <!-- 愿望内容输入 -->
         <textarea
           id="input-content"
           placeholder="写下你的愿望 (50字以内)"
           maxlength="50"
         ></textarea>
+        <!-- 署名输入 -->
         <input
           type="text"
           id="input-name"
           placeholder="署名 (10字以内)"
           maxlength="10"
         />
+        <!-- 匿名选项 -->
         <label class="anon-label">
           <input type="checkbox" id="input-anon" /> 匿名发布
         </label>
+        <!-- 操作按钮组 -->
         <div class="modal-btns">
           <button
             onclick="
@@ -135,12 +151,15 @@
       </div>
     </div>
 
+    <!-- 访客统计 -->
     <div class="visitor-counter">
       烟花点亮人数 <span id="busuanzi_value_site_pv">--</span>
     </div>
 
+    <!-- 作者信息 -->
     <div class="author-info">Made by Chengxue Han,2026.2</div>
 
+    <!-- JavaScript主逻辑 -->
     <script src="javascript/main.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-// Supabase 配置
+/* ========== Supabase 数据库配置与初始化 ========== */
 const SUPABASE_URL = "https://ienzafqabglqiggpbjza.supabase.co";
 const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImllbnphZnFhYmdscWlnZ3BianphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5ODgxMjgsImV4cCI6MjA4NjU2NDEyOH0.IY1Cu3rPCvaaVAhStoGrHND-i6pRWB7wIfuzsC_5O4o";
@@ -14,7 +14,7 @@ try {
   console.error("Supabase 初始化失败:", error);
 }
 
-// 页面切换
+/* ========== 页面视图切换 ========== */
 function navigateTo(target) {
   const home = document.getElementById("view-home");
   const wall = document.getElementById("view-wall");
@@ -38,11 +38,12 @@ function navigateTo(target) {
   }
 }
 
-// 许愿功能
+/* ========== 许愿弹窗控制 ========== */
 function toggleModal(show) {
   document.getElementById("wish-modal").style.display = show ? "flex" : "none";
 }
 
+/* ========== 获取许愿列表 ========== */
 async function fetchWishes() {
   const grid = document.getElementById("message-grid");
   grid.innerHTML =
@@ -84,6 +85,7 @@ async function fetchWishes() {
   }
 }
 
+/* ========== 提交许愿 ========== */
 async function submitWish() {
   const content = document.getElementById("input-content").value;
   const name = document.getElementById("input-name").value;
@@ -116,6 +118,7 @@ async function submitWish() {
   }
 }
 
+/* ========== 烟花动画系统 ========== */
 const canvas = document.getElementById("firework-canvas");
 const ctx = canvas.getContext("2d");
 let width, height;
@@ -130,6 +133,7 @@ const colors = [
   { h: 330, s: 90, l: 60 },
 ];
 
+// 画布尺寸调整
 function resize() {
   width = canvas.width = window.innerWidth;
   height = canvas.height = window.innerHeight;
@@ -137,6 +141,7 @@ function resize() {
 window.addEventListener("resize", resize);
 resize();
 
+/* ========== 粒子类：单个烟花粒子 ========== */
 class Particle {
   constructor(x, y, color) {
     this.x = x;
@@ -187,6 +192,7 @@ class Particle {
   }
 }
 
+/* ========== 烟花爆炸效果 ========== */
 function explode(x, y) {
   const count = 90;
   const isMultiColor = Math.random() > 0.6;
@@ -204,6 +210,7 @@ function explode(x, y) {
   }
 }
 
+/* ========== 动画循环 ========== */
 function loop() {
   ctx.clearRect(0, 0, width, height);
   ctx.globalCompositeOperation = "screen";
@@ -216,8 +223,9 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
+/* ========== 交互事件 ========== */
+// 点击屏幕触发烟花（排除交互元素）
 window.addEventListener("pointerdown", (e) => {
-  // 优化判定：如果点击的目标本身，或者它的父级链条里有按钮或输入框
   const isInteractive = e.target.closest(
     "button, input, textarea, .modal-content, .message-card",
   );
@@ -227,10 +235,12 @@ window.addEventListener("pointerdown", (e) => {
   }
 });
 
+// 自动随机烟花
 setInterval(() => {
   if (particles.length < 400) {
     explode(Math.random() * width, Math.random() * height * 0.5);
   }
 }, 1800);
 
+// 启动动画
 loop();

@@ -1,3 +1,4 @@
+/* ========== 全局变量与重置 ========== */
 :root {
   --paper-color: #f4e8d1;
   --ink-red: #9c1a1a;
@@ -9,6 +10,7 @@
   box-sizing: border-box;
 }
 
+/* 页面基础样式 */
 body,
 html {
   width: 100%;
@@ -19,6 +21,7 @@ html {
   font-family: "Ma Shan Zheng", cursive;
 }
 
+/* ========== 视图切换动画 ========== */
 .view {
   position: absolute;
   width: 100%;
@@ -38,6 +41,7 @@ html {
   transform: scale(1);
 }
 
+/* ========== 首页布局 ========== */
 .main-container {
   position: relative;
   width: 100vw;
@@ -52,6 +56,8 @@ html {
   user-select: none;
   pointer-events: none;
 }
+
+/* ========== 书法容器与文字 ========== */
 .calligraphy-box {
   position: relative;
   width: 320px;
@@ -59,17 +65,23 @@ html {
   transform: translateY(-20px);
   pointer-events: none;
 }
+
+/* 激活视图层级 */
 .view.active {
   opacity: 1;
   transform: scale(1);
-  z-index: 50; /* 确保激活页面高于 canvas 和其他隐藏页面 */
+  z-index: 50;
 }
+
+/* 交互元素启用点击 */
 .wish-button,
 .back-btn,
 .write-btn,
 .modal {
   pointer-events: auto !important;
 }
+
+/* ========== 书法文字样式 ========== */
 .char {
   position: absolute;
   font-size: clamp(7.5rem, 21vw, 10.5rem);
@@ -101,6 +113,7 @@ html {
   z-index: 1;
 }
 
+/* ========== 印章样式 ========== */
 .seal-container {
   position: absolute;
   left: -15px;
@@ -133,6 +146,7 @@ html {
   padding-top: 2px;
 }
 
+/* ========== 按钮样式 ========== */
 .wish-button {
   position: absolute;
   bottom: 18%;
@@ -167,6 +181,7 @@ html {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
+/* ========== 许愿墙样式 ========== */
 .wall-header {
   width: 90%;
   margin-top: 30px;
@@ -238,6 +253,7 @@ html {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* ========== 模态弹窗样式 ========== */
 .modal {
   position: fixed;
   top: 0;
@@ -283,6 +299,7 @@ html {
   color: white;
 }
 
+/* ========== 其他元素 ========== */
 .hint {
   position: absolute;
   bottom: 12%;
@@ -323,6 +340,7 @@ html {
   z-index: 20;
   color: #8e8e93;
   font-size: 0.7rem;
+  font-family: "Times New Roman", serif;
 }
 
 @keyframes blink {
@@ -335,11 +353,9 @@ html {
   }
 }
 
-/* ==========================================
-   移动端全能优化方案 (含书法聚拢、卡片防重叠、印章修复)
-   ========================================== */
+/* ========== 移动端响应式适配 ========== */
 @media (max-width: 768px) {
-  /* --- 1. 首页：书法字体聚拢排版 (模拟电脑端效果) --- */
+  /* 首页书法布局调整 */
   .calligraphy-box {
     width: 220px;
     height: 380px;
@@ -380,14 +396,13 @@ html {
     z-index: 1;
   }
 
-  /* --- 2. 首页：印章红色底修复与文字居中 --- */
+  /* 印章修复：强制红色背景与居中 */
   .seal-container {
     width: 35px;
     height: 75px;
     left: -20px;
     top: 200px;
     z-index: 10;
-    /* 使用 Flexbox 确保内部文字绝对居中 */
     display: flex !important;
     justify-content: center;
     align-items: center;
@@ -399,9 +414,8 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    fill: #9c1a1a !important; /* 强制红色填充 */
+    fill: #9c1a1a !important;
     display: block !important;
-    /* 移除在移动端可能导致失效的复杂滤镜，改用简单阴影 */
     filter: none !important;
     filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.2)) !important;
   }
@@ -415,11 +429,11 @@ html {
     text-align: center;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    padding-top: 0; /* 移除可能的偏移 */
+    padding-top: 0;
     margin: 0;
   }
 
-  /* --- 3. 许愿页面：消除重叠，完整显示 --- */
+  /* 许愿墙卡片防重叠 */
   #view-wall {
     padding-bottom: 120px;
     overflow-y: auto;
@@ -438,7 +452,7 @@ html {
   }
 
   .message-card {
-    aspect-ratio: auto !important; /* 取消固定比例，由内容撑开高度 */
+    aspect-ratio: auto !important;
     min-height: 140px;
     height: auto !important;
     padding: 15px 10px !important;
@@ -450,11 +464,10 @@ html {
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    /* 建议在移动端将旋转角度微调，防止极端情况重叠 */
     transform: rotate(0deg) !important;
   }
 
-  /* --- 4. 底部信息与交互按钮 --- */
+  /* 底部元素位置调整 */
   .wish-button {
     bottom: 24%;
     padding: 8px 30px;
@@ -487,7 +500,7 @@ html {
   }
 }
 
-/* --- 5. 针对极小屏幕手机微调 --- */
+/* ========== 极小屏幕适配 ========== */
 @media (max-width: 360px) {
   .char {
     font-size: 5.5rem !important;
