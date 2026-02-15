@@ -336,138 +336,176 @@ html {
 }
 
 /* ==========================================
-   移动端终极优化方案 (含印章修复、排版聚拢、网格防重叠)
+   移动端全能优化方案 (含书法聚拢、卡片防重叠、印章修复)
    ========================================== */
 @media (max-width: 768px) {
-  /* --- 1. 首页：书法字体深度聚拢 --- */
+  /* --- 1. 首页：书法字体聚拢排版 (模拟电脑端效果) --- */
   .calligraphy-box {
-    width: 200px; /* 进一步收紧，让文字更集中 */
-    height: 360px;
+    width: 220px;
+    height: 380px;
     margin: 0 auto;
-    transform: translateY(-80px); /* 整体位置 */
+    transform: translateY(-80px) scale(1);
     position: relative;
+    display: block;
   }
 
   .char {
-    font-size: 6.8rem !important;
-    line-height: 0.9;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 6.5rem !important;
+    line-height: 1;
+    filter: drop-shadow(0 0 10px rgba(178, 34, 34, 0.15));
   }
 
   .char-xin {
     top: 0;
-    right: 10px;
+    right: 25px;
     z-index: 4;
   }
+
   .char-chun {
-    top: 80px;
-    right: -10px;
+    top: 85px;
+    right: 5px;
     z-index: 2;
   }
+
   .char-kuai {
-    top: 150px;
-    left: 15px;
+    top: 155px;
+    left: 25px;
     z-index: 3;
   }
+
   .char-le {
-    top: 235px;
+    top: 245px;
     left: 50%;
     transform: translateX(-40%);
     z-index: 1;
   }
 
-  /* --- 2. 印章修复：确保红色底显现 --- */
+  /* --- 2. 首页：印章红色底修复与文字居中 --- */
   .seal-container {
-    width: 38px;
-    height: 80px;
-    left: -30px; /* 位置微调，避免贴字太近 */
-    top: 195px;
+    width: 35px;
+    height: 75px;
+    left: -20px;
+    top: 200px;
     z-index: 10;
-    display: block !important; /* 强制显示 */
+    /* 使用 Flexbox 确保内部文字绝对居中 */
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
   }
 
   .seal-bg {
-    width: 100% !important;
-    height: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    fill: #9c1a1a !important; /* 强制红色填充 */
     display: block !important;
-    fill: #9c1a1a !important; /* 显式指定红色，防止变量丢失 */
-    /* 移动端如果滤镜导致消失，可尝试关闭滤镜或确保其正常引用 */
+    /* 移除在移动端可能导致失效的复杂滤镜，改用简单阴影 */
     filter: none !important;
-    /* 如果想要保留一点粗糙感，可以用下面的 drop-shadow 代替滤镜 */
     filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.2)) !important;
   }
 
   .seal-text {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    font-weight: bold;
+    position: relative;
+    z-index: 11;
     color: var(--paper-color) !important;
+    font-size: 0.75rem;
+    line-height: 1.1;
+    text-align: center;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    padding-top: 0; /* 移除可能的偏移 */
+    margin: 0;
   }
 
-  /* --- 3. 许愿页面：完全消除重叠，自适应高度 --- */
+  /* --- 3. 许愿页面：消除重叠，完整显示 --- */
   #view-wall {
     padding-bottom: 120px;
+    overflow-y: auto;
   }
 
   #message-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
-    width: 95% !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 15px !important;
+    width: 94% !important;
     height: auto !important;
-    max-height: 58vh !important;
-    padding: 15px 8px !important;
+    max-height: 60vh !important;
+    padding: 20px 10px !important;
     margin: 10px auto !important;
+    align-items: start;
   }
 
   .message-card {
-    aspect-ratio: auto !important; /* 关键：取消固定比例，防止文字溢出重叠 */
-    min-height: 130px;
+    aspect-ratio: auto !important; /* 取消固定比例，由内容撑开高度 */
+    min-height: 140px;
     height: auto !important;
     padding: 15px 10px !important;
-    font-size: 0.95rem;
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
-    transform: rotate(
-      0deg
-    ) !important; /* 移动端建议取消大幅度旋转，降低视觉混乱并减少重叠几率 */
+    position: relative !important;
+    margin: 0 !important;
+    font-size: 1rem;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    /* 建议在移动端将旋转角度微调，防止极端情况重叠 */
+    transform: rotate(0deg) !important;
   }
 
-  /* --- 4. 按钮与页脚适配 --- */
+  /* --- 4. 底部信息与交互按钮 --- */
   .wish-button {
-    bottom: 23%;
-    padding: 8px 32px;
+    bottom: 24%;
+    padding: 8px 30px;
     font-size: 1.3rem;
   }
+
   .write-btn {
-    margin: 20px 0;
+    margin: 25px 0;
     padding: 12px 45px;
+    position: relative;
     z-index: 100;
   }
 
   .visitor-counter {
-    bottom: 35px;
+    bottom: 40px;
     background: rgba(244, 232, 209, 0.9);
-    padding: 2px 12px;
+    padding: 3px 12px;
     border-radius: 20px;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
   }
+
   .author-info {
     bottom: 15px;
-    font-size: 0.6rem;
-    opacity: 0.7;
+    font-size: 0.65rem;
   }
+
   .hint {
-    bottom: 17%;
-    font-size: 0.75rem;
+    bottom: 18%;
+    font-size: 0.8rem;
   }
 }
 
-/* 极小屏幕微调 */
-@media (max-width: 350px) {
-  .calligraphy-box {
-    transform: scale(0.85) translateY(-60px);
-  }
+/* --- 5. 针对极小屏幕手机微调 --- */
+@media (max-width: 360px) {
   .char {
-    font-size: 6rem !important;
+    font-size: 5.5rem !important;
+  }
+  .calligraphy-box {
+    transform: translateY(-60px) scale(0.9);
+  }
+  .char-chun {
+    top: 75px;
+  }
+  .char-kuai {
+    top: 135px;
+  }
+  .char-le {
+    top: 215px;
+  }
+  #message-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
   }
 }
