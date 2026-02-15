@@ -334,3 +334,102 @@ html {
     opacity: 0.8;
   }
 }
+
+/* ==========================================
+   移动端专项优化 (仅在屏幕宽度小于 768px 时生效)
+   ========================================== */
+@media (max-width: 768px) {
+  /* 1. 调整首页书法字体大小，防止溢出屏幕 */
+  .calligraphy-box {
+    width: 280px; /* 缩小容器宽度 */
+    height: 450px;
+    transform: translateY(-40px);
+  }
+
+  .char {
+    font-size: clamp(5rem, 18vw, 8rem); /* 缩小移动端字号 */
+  }
+
+  /* 2. 许愿墙布局优化 */
+  #view-wall {
+    padding-bottom: 80px; /* 为底部固定信息留出安全距离，防止遮挡按钮 */
+    justify-content: flex-start; /* 顶部对齐，方便滚动 */
+  }
+
+  .wall-header {
+    margin-top: 20px;
+    padding: 0 15px;
+  }
+
+  .wall-title {
+    font-size: 2rem;
+  }
+
+  /* 3. 网格卡片优化：确保一行能放下两个，且文字不溢出 */
+  #message-grid {
+    grid-template-columns: repeat(2, 1fr); /* 强制移动端双列布局 */
+    gap: 10px;
+    height: auto; /* 让高度根据内容自适应 */
+    max-height: 55vh; /* 限制最大高度，防止把按钮挤出屏幕 */
+    width: 95%;
+    padding: 5px;
+  }
+
+  .message-card {
+    padding: 10px;
+    font-size: 0.9rem; /* 稍微缩小文字 */
+  }
+
+  /* 4. 按钮位置调整：防止被底部作者信息遮挡 */
+  .write-btn {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 12px 40px; /* 增大点击区域，方便手指操作 */
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 30; /* 确保层级高于页脚 */
+  }
+
+  .wish-button {
+    bottom: 22%; /* 首页按钮位置微调 */
+  }
+
+  /* 5. 底部装饰性信息优化：减小字号并降低存在感，避免干扰操作 */
+  .visitor-counter {
+    bottom: 30px;
+    font-size: 0.65rem;
+    background: rgba(244, 232, 209, 0.8); /* 添加半透明背景防止背景太乱看不清 */
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .author-info {
+    bottom: 10px;
+    font-size: 0.6rem;
+    opacity: 0.6;
+  }
+
+  /* 6. 弹窗适配：确保在手机键盘弹出时仍能看清内容 */
+  .modal-content {
+    width: 90%;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .modal-content textarea {
+    height: 100px;
+  }
+}
+
+/* 针对极小屏幕 (如 iPhone SE) 的额外微调 */
+@media (max-width: 380px) {
+  .char {
+    font-size: 6rem;
+  }
+  #message-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .wall-title {
+    font-size: 1.5rem;
+  }
+}
